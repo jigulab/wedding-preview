@@ -296,7 +296,7 @@ html[data-sheet='full'] { --sheet-h: var(--sheet-full); }
   .sheet-handle span { width: 44px; height: 5px; border-radius: 5px; background: var(--b-line-2); }
   .sheet-handle em { display: none; font-style: normal; font-size: 12px; color: var(--b-faint); }
   html[data-sheet='peek'] .sheet-handle em { display: block; }
-  .panel__head, .list__grab { touch-action: none; user-select: none; -webkit-user-select: none; }
+  .panel__head { touch-action: none; user-select: none; -webkit-user-select: none; }
   html.is-sheet-drag .side, html.is-sheet-drag .stage { transition: none; }
   html.is-sheet-press iframe { pointer-events: none; }
   .list { padding-top: 4px; }

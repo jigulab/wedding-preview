@@ -764,12 +764,17 @@ function bindSheet() {
   const side = $('[data-side]');
   const root = document.documentElement;
   setSheet(S.sheet);
-  let drag = null; // { id, y0, h0, t0, moved, lastY, lastT }
+  let drag = null; // { id, y0, h0, hs, moved, lastY, lastT, vY }
+  let blockClickUntil = 0;
+  // 끌기 직후 따라오는 클릭만 막는다(마우스는 클릭이 생기고, 터치는 안 생기므로 시간으로 판단)
+  side.addEventListener('click', (ev) => {
+    if (performance.now() < blockClickUntil) { ev.stopPropagation(); ev.preventDefault(); }
+  }, { capture: true });
 
-  const zone = (e) => mq.matches && e.target.closest('[data-sheet-handle], .panel__head, .list__grab');
+  const zone = (e) => mq.matches && e.target.closest('[data-sheet-handle], .panel__head');
   side.addEventListener('pointerdown', (e) => {
     if (!zone(e) || e.button > 0) return;
-    drag = { id: e.pointerId, y0: e.clientY, h0: side.getBoundingClientRect().height, t0: e.timeStamp, moved: false, lastY: e.clientY, lastT: e.timeStamp, el: e.target };
+    drag = { id: e.pointerId, y0: e.clientY, h0: side.getBoundingClientRect().height, hs: sheetHeights(), moved: false, lastY: e.clientY, lastT: e.timeStamp, vY: 0, el: e.target };
     // 손가락이 위쪽 미리보기(iframe) 위로 올라가도 신호를 빼앗기지 않게: 누르는 동안 iframe 은 신호를 안 받는다
     root.classList.add('is-sheet-press');
     // 손잡이 띠는 버튼이 없으니 바로 붙잡는다(제목줄은 버튼 탭을 살리려고 움직인 뒤에 붙잡는다)
@@ -785,7 +790,7 @@ function bindSheet() {
       if (!side.hasPointerCapture(e.pointerId)) side.setPointerCapture(e.pointerId);
       root.classList.add('is-sheet-drag');
     }
-    const [hp, , hf] = sheetHeights();
+    const [hp, , hf] = drag.hs;
     const h = Math.max(hp * 0.8, Math.min(hf * 1.03, drag.h0 - dy));
     root.style.setProperty('--sheet-h', `${h}px`);
     drag.vY = (e.clientY - drag.lastY) / Math.max(1, e.timeStamp - drag.lastT);
@@ -804,19 +809,17 @@ function bindSheet() {
       return;
     }
     if (cancelled) return setSheet(S.sheet);
-    const hs = sheetHeights();
+    const hs = d.hs;
     const cur = side.getBoundingClientRect().height;
-    let target;
-    if (Math.abs(d.vY ?? 0) > 0.6) {
-      // 빠르게 튕기면 그 방향으로 한 칸
-      const i = SHEET_ORDER.indexOf(S.sheet);
-      target = SHEET_ORDER[Math.max(0, Math.min(2, i + (d.vY < 0 ? 1 : -1)))];
-    } else {
-      target = SHEET_ORDER[hs.reduce((bi, h, i) => (Math.abs(h - cur) < Math.abs(hs[bi] - cur) ? i : bi), 0)];
-    }
-    setSheet(target);
-    // 끌기 뒤에 따라오는 클릭(뒤로가기·토글 오작동)을 한 번 막는다
-    side.addEventListener('click', (ev) => { ev.stopPropagation(); ev.preventDefault(); }, { capture: true, once: true });
+    // 놓기 직전까지 움직이고 있었을 때만 "튕김"으로 본다(멈췄다 놓으면 위치로 판단)
+    const flick = Math.abs(d.vY) > 0.6 && e.timeStamp - d.lastT < 120;
+    let i;
+    if (flick && d.vY < 0) i = hs.findIndex((h) => h > cur + 4); // 위로 튕김 → 지금 위치보다 높은 다음 칸
+    else if (flick) i = hs.map((h, k) => (h < cur - 4 ? k : -1)).filter((k) => k >= 0).pop() ?? -1; // 아래로 → 낮은 다음 칸
+    else i = -1;
+    if (i < 0) i = flick ? (d.vY < 0 ? 2 : 0) : hs.reduce((bi, h, k) => (Math.abs(h - cur) < Math.abs(hs[bi] - cur) ? k : bi), 0);
+    setSheet(SHEET_ORDER[i]);
+    blockClickUntil = performance.now() + 400;
   };
   window.addEventListener('pointerup', (e) => end(e, false));
   window.addEventListener('pointercancel', (e) => end(e, true));
