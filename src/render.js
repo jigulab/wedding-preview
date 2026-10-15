@@ -5,7 +5,7 @@ import { dday, calendarGrid, formatDate, formatTime, WEEK_KO } from './lib/date.
 import { MOODS, DEFAULT_MOOD } from './themes.js';
 
 export const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (ch) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch]));
-const lines = (arr) => (arr ?? []).filter((l) => l !== undefined).map((l) => `<p>${esc(l)}</p>`).join('');
+const lines = (arr) => (Array.isArray(arr) ? arr : typeof arr === 'string' ? arr.split('\n') : []).filter((l) => l !== undefined).map((l) => `<p>${esc(l)}</p>`).join('');
 const firstName = (full = '') => (full.length >= 3 ? full.slice(1) : full);
 const enName = (p) => p.nameEn || firstName(p.name);
 const initial = (p) => (p.nameEn ? p.nameEn[0].toUpperCase() : (firstName(p.name)[0] ?? ''));
@@ -26,6 +26,8 @@ const ICON = {
   car: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 16h14v-4l-2-5H7l-2 5zM7 19v-3M17 19v-3M5 12h14"/></svg>',
   meal: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3v18M4 3v5a3 3 0 0 0 6 0V3M17 3c-2 2-3 5-3 8h3v10"/></svg>',
   bus: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h14v12H5zM5 11h14M8 19v-3M16 19v-3"/></svg>',
+  prev: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>',
+  next: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>',
   shield: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg>',
 };
 
@@ -178,7 +180,7 @@ function calendar(c, ctx) {
   else if (left > 0) text = `<p>${g} ♥ ${b}의 결혼식이 <b>${left}일</b> 남았습니다.</p>`;
   else if (left === 0) text = '<p>오늘, 저희 결혼합니다.</p>';
   else text = '<p>저희 두 사람, 행복하게 잘 살겠습니다.</p>';
-  const showCountdown = ctx.mode !== 'memorial' && left >= 0;
+  const showDday = ctx.mode !== 'memorial' && left >= 0;
   return `
   <section class="sec reveal" data-section="calendar">
     <p class="cal__date">${esc(f.dot)}</p>
@@ -189,9 +191,7 @@ function calendar(c, ctx) {
         <tbody>${rows}</tbody>
       </table>
     </div>
-    ${showCountdown ? `<div class="countdown" data-countdown="${esc(c.wedding.date)}T${esc(c.wedding.time || '00:00')}:00+09:00" aria-hidden="true">
-      ${['DAYS', 'HOUR', 'MIN', 'SEC'].map((k) => `<div class="countdown__cell"><div class="countdown__num" data-k="${k}">-</div><div class="countdown__label">${k}</div></div>`).join('')}
-    </div>` : ''}
+    ${showDday ? `<p class="dday" aria-hidden="true">${left === 0 ? 'D-DAY' : `D-${left}`}</p>` : ''}
     <div class="dday-text">${text}</div>
   </section>`;
 }
@@ -292,8 +292,8 @@ function gallery(c, ctx) {
       <div class="gal__track" data-gal-track>
         ${src.map((s, i) => `<div class="gal__slide"><img src="${esc(s)}" alt="웨딩 사진 ${i + 1}" loading="lazy" data-index="${i}"></div>`).join('')}
       </div>
-      ${g.length > 1 ? `<button class="gal__arrow gal__arrow--prev" data-gal="-1" aria-label="이전 사진">‹</button>
-      <button class="gal__arrow gal__arrow--next" data-gal="1" aria-label="다음 사진">›</button>` : ''}
+      ${g.length > 1 ? `<button class="gal__arrow gal__arrow--prev" data-gal="-1" aria-label="이전 사진">${ICON.prev}</button>
+      <button class="gal__arrow gal__arrow--next" data-gal="1" aria-label="다음 사진">${ICON.next}</button>` : ''}
     </div>
     <p class="gal__count" data-gal-count>1 / ${g.length}</p>
     ${g.length > 1 ? `<div class="gal__thumbs">
@@ -416,7 +416,8 @@ export function renderInvitation(c, opts = {}) {
   if (mode === 'parents' && order.includes('parents')) {
     order = ['cover', 'parents', ...order.filter((id) => id !== 'cover' && id !== 'parents')];
   }
-  if (mode === 'memorial') order = order.filter((id) => id !== 'accounts');
+  // 예식 후에는 계좌·길 안내·화환·안내사항·응답 칸이 필요 없다 — 인사·사진·감사만 남긴다
+  if (mode === 'memorial') order = order.filter((id) => !['accounts', 'location', 'flower', 'notices', 'rsvp', 'guestbook'].includes(id));
   const body = order.map((id) => RENDER[id]?.(c, ctx) ?? '').join('');
   return `<div class="inv" data-mode="${esc(mode)}">${body}</div>
   ${mode !== 'memorial' ? contactSheet(c) : ''}

@@ -208,7 +208,7 @@ export const PANELS = {
       { type: 'bool', path: 'memorial.enabled', label: '예식 후 기념 페이지로 바꾸기' },
       { type: 'number', path: 'memorial.afterDays', label: '예식 며칠 후부터', min: 1, max: 30 },
       { type: 'lines', path: 'memorial.lines', label: '감사 인사', rows: 3 },
-      { type: 'note', text: '위쪽 "기념" 보기로 바로 확인할 수 있어요.' },
+      { type: 'note', text: '위쪽 "예식 후" 보기로 바로 확인할 수 있어요.' },
     ],
   },
 };

@@ -81,7 +81,7 @@ a { color: inherit; text-decoration: none; }
 
 /* 2. 인사말 */
 .greeting__lines p { margin: 0; }
-.greeting__photo { margin: 40px -28px 0; }
+.greeting__photo { margin: 40px -28px -72px; }
 .greeting__photo img { width: 100%; aspect-ratio: 2 / 3; object-fit: cover; }
 
 /* 3. 혼주 */
@@ -137,10 +137,7 @@ a { color: inherit; text-decoration: none; }
   display: inline-flex; width: 34px; height: 34px; border-radius: 50%;
   background: var(--accent); color: #fff; align-items: center; justify-content: center; font-weight: 700;
 }
-.countdown { display: flex; justify-content: center; gap: 10px; margin: 30px 0 18px; }
-.countdown__cell { min-width: 60px; padding: 10px 0; background: #fff; border-radius: 10px; border: 1px solid var(--line); }
-.countdown__num { font-size: 22px; font-family: var(--font-en); font-weight: 500; line-height: 1.2; }
-.countdown__label { font-size: 12px; color: var(--ink-soft); letter-spacing: .12em; }
+.dday { display: inline-block; margin: 30px 0 14px; padding: 8px 22px; border-radius: 999px; border: 1px solid var(--line); background: #fff; font-family: var(--font-en); font-size: 22px; letter-spacing: .08em; color: var(--accent); }
 .dday-text b { color: var(--accent); }
 
 /* 6. 오시는 길 */
@@ -184,7 +181,8 @@ a { color: inherit; text-decoration: none; }
 .gal__slide { flex: 0 0 100%; scroll-snap-align: center; }
 .gal__slide img { width: 100%; aspect-ratio: 2 / 3; object-fit: cover; cursor: zoom-in; }
 .gal__count { margin-top: 12px; font-family: var(--font-en); letter-spacing: .1em; color: var(--ink-soft); font-size: 14px; }
-.gal__arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,.75); font-size: 18px; }
+.gal__arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 44px; height: 44px; border-radius: 50%; background: rgba(255,255,255,.82); display: inline-flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,.08); }
+.gal__arrow svg { width: 20px; height: 20px; fill: none; stroke: #2b2523; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 .gal__arrow--prev { left: 10px; }
 .gal__arrow--next { right: 10px; }
 .gal__thumbs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; margin-top: 16px; }

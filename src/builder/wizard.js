@@ -29,7 +29,7 @@ export function runWizard({ processPhoto }) {
           <div class="wiz__intro">
             <p class="wiz__kicker">청첩장 스튜디오</p>
             <h1>두 사람의 청첩장을<br>5분 만에 만들어 볼까요?</h1>
-            <p class="wiz__lead">몇 가지만 알려 주시면 바로 완성된 청첩장을 보여 드릴게요.<br>나머지는 미리보기를 보면서 천천히 고치면 돼요.</p>
+            <p class="wiz__lead">몇 가지만 알려 주시면 완성된 청첩장을 바로 보여 드려요. 나머지는 미리보기를 보며 천천히 고치면 돼요.</p>
             <div class="wiz__cta">
               <button class="wbtn wbtn--primary" data-w="next">직접 만들기</button>
               <button class="wbtn" data-w="sample">예시로 먼저 둘러보기</button>
@@ -61,7 +61,7 @@ export function runWizard({ processPhoto }) {
       if (s === 'photo') {
         return `<h2>대표 사진을 골라 주세요</h2>
           <button class="wiz__photo ${data.photoUrl ? 'has' : ''}" data-w="photo" type="button">
-            ${data.photoUrl ? `<img src="${esc(data.photoUrl)}" alt="고른 사진">` : '<span>눌러서 사진 고르기</span>'}
+            ${data.photoUrl ? `<img src="${esc(data.photoUrl)}" alt="고른 사진">` : '<span class="wiz__photo-empty"><b>＋</b>눌러서 사진 고르기</span>'}
           </button>
           <p class="wiz__hint">세로 사진이 잘 어울려요. 사진은 자동으로 가볍게 줄여서 저장해요.</p>
           <input type="file" accept="image/*" hidden data-w-file>`;
@@ -84,8 +84,7 @@ export function runWizard({ processPhoto }) {
             <p class="wiz__err" role="alert" hidden></p>
             ${step >= 0 ? `<div class="wiz__nav">
               <button type="button" class="wbtn wbtn--ghost" data-w="prev">이전</button>
-              ${s === 'photo' && !data.photo ? '<button type="button" class="wbtn wbtn--ghost" data-w="next">나중에</button>' : ''}
-              <button type="submit" class="wbtn wbtn--primary">${step === STEPS.length - 1 ? '청첩장 만들기' : '다음'}</button>
+              <button type="submit" class="wbtn ${s === 'photo' && !data.photo ? '' : 'wbtn--primary'}">${step === STEPS.length - 1 ? '청첩장 만들기' : s === 'photo' && !data.photo ? '나중에 고를게요' : '다음'}</button>
             </div>` : ''}
           </form>
         </div>`;

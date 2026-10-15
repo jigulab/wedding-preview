@@ -74,6 +74,16 @@ export function migrate(input) {
     enabled: id === FIXED_FIRST || id === FIXED_LAST ? true : (known.has(id) ? known.get(id) : defaultEnabled(c, id)),
   }));
 
+  // 줄 목록 칸은 항상 글자 배열 — 손상된 백업·옛 데이터가 글자 하나로 들고 와도 줄로 나눠 바로잡는다
+  const asLines = (v) => (Array.isArray(v) ? v.map((x) => String(x ?? '')) : typeof v === 'string' ? v.split('\n') : []);
+  const fix = (obj, key) => { if (obj && key in obj) obj[key] = asLines(obj[key]); };
+  fix(c.greeting, 'lines'); fix(c.cover, 'script'); fix(c.accounts, 'message');
+  fix(c.parents, 'greetingLines'); fix(c.memorial, 'lines');
+  for (const k of ['parking', 'meal', 'shuttle']) fix(c.venue.guide, k);
+  c.venue.routes = (Array.isArray(c.venue.routes) ? c.venue.routes : []).map((r) => ({ title: '', ...r, items: asLines(r?.items) }));
+  c.notices = (Array.isArray(c.notices) ? c.notices : []).map((n) => ({ title: '', photo: '', ...n, lines: asLines(n?.lines) }));
+  if (!Array.isArray(c.gallery)) c.gallery = [];
+
   c.schemaVersion = SCHEMA_VERSION;
   return c;
 }

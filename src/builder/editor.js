@@ -140,7 +140,7 @@ function mount() {
     </header>
     <div class="body">
       <aside class="side" data-side>
-        <div class="sheet-handle" data-sheet-handle><span></span></div>
+        <div class="sheet-handle" data-sheet-handle role="button" tabindex="0" aria-label="편집판 크기 바꾸기"><span></span><em>눌러서 펼치기</em></div>
         <div class="side__inner" data-side-inner></div>
       </aside>
       <section class="stage" data-stage>
@@ -214,7 +214,7 @@ function renderSide() {
           <h2>${esc(p.title)}</h2>
           ${sec && sec.id !== FIXED_FIRST && sec.id !== FIXED_LAST ? `<label class="vis"><span>${sec.enabled ? '보임' : '숨김'}</span><input type="checkbox" class="switch" data-action="toggle" data-id="${sec.id}" ${sec.enabled ? 'checked' : ''}></label>` : ''}
         </div>
-        ${sec && !sec.enabled ? '<p class="panel__off">이 섹션은 지금 청첩장에서 숨겨져 있어요. 내용은 그대로 남아 있어요.</p>' : ''}
+        ${sec && !sec.enabled ? `<div class="panel__off"><p>이 섹션은 지금 청첩장에서 숨겨져 있어요. 내용은 그대로 남아 있어요.</p><button class="btn-s" data-action="show-section" data-id="${sec.id}">청첩장에 보이게 하기</button></div>` : ''}
         <div class="panel__body" data-panel-body>${renderPanel(S.panel, c, { thumb, mood: c.theme.mood, galleryCount: c.gallery.length })}</div>
       </div>`;
     return;
@@ -266,11 +266,14 @@ function openPanel(id, { fromPreview = false } = {}) {
   S.panel = id;
   renderSide();
   $('[data-side-inner]').scrollTop = 0;
-  if (c_has_section(id)) S.bridge.focus(id);
-  if (id === 'parentsMode') setMode('parents');
-  else if (id === 'memorial') setMode('memorial');
-  else if (id === 'share' && S.mode !== 'guest') setMode('kakao');
-  else if (fromPreview && S.mode === 'kakao') setMode('guest');
+  // 패널마다 그 결과가 가장 잘 보이는 보기·위치로 미리보기를 옮긴다
+  if (id === 'parentsMode') { setMode('parents'); S.bridge.focus('parents'); }
+  else if (id === 'memorial') { setMode('memorial'); S.bridge.focus('calendar'); }
+  else if (id === 'share') setMode('kakao');
+  else {
+    if (S.mode === 'kakao' || (!fromPreview && S.mode !== 'guest')) setMode('guest');
+    if (c_has_section(id)) S.bridge.focus(id);
+  }
   if (mq.matches && (S.sheet === 'peek' || fromPreview)) setSheet('half');
 }
 const c_has_section = (id) => S.config.sections.some((s) => s.id === id);
@@ -376,9 +379,11 @@ function readValue(el) {
   return el.value;
 }
 
+const isField = (el) => el.matches?.('input[data-path], textarea[data-path], select[data-path]');
+
 function onInput(e) {
   const el = e.target;
-  if (!el.dataset.path || el.dataset.kind === 'bool') return;
+  if (!isField(el) || el.dataset.kind === 'bool') return;
   if (el.tagName === 'SELECT') return; // change 에서
   commit(setPath(S.config, el.dataset.path, readValue(el)), { path: el.dataset.path });
   updateListTitles(el);
@@ -393,7 +398,7 @@ function onChange(e) {
     if (!S.panel) el.closest('.sec-item').querySelector('small').textContent = el.checked ? summary(el.dataset.id, S.config) : '숨김';
     return;
   }
-  if (!el.dataset.path) return;
+  if (!isField(el)) return;
   if (el.dataset.kind === 'bool' || el.tagName === 'SELECT') {
     commit(setPath(S.config, el.dataset.path, readValue(el)), { path: el.dataset.path });
   }
@@ -433,8 +438,9 @@ async function onClick(e) {
 
   switch (a) {
     case 'open': return openPanel(el.dataset.id);
-    case 'back': S.panel = null; renderSide(); if (S.mode !== 'guest' && S.mode !== 'kakao') setMode('guest'); return;
+    case 'back': S.panel = null; renderSide(); if (S.mode !== 'guest') setMode('guest'); return;
     case 'reorder': S.reorder = !S.reorder; return renderSide();
+    case 'show-section': commit(toggleSection(c, el.dataset.id, true), { side: 'full' }); S.bridge.focus(el.dataset.id); toast('청첩장에 보이게 했어요'); return;
     case 'sec-move': commit(moveSection(c, el.dataset.id, Number(el.dataset.d))); renderSide(); $(`.sec-item[data-id="${el.dataset.id}"] [data-d="${el.dataset.d}"]`)?.focus(); return;
     case 'mode': return setMode(el.dataset.mode);
     case 'undo': return undo(-1);
@@ -732,25 +738,98 @@ function bindDrag(app) {
 
 function setSheet(state) {
   S.sheet = state;
-  document.documentElement.dataset.sheet = state;
+  const root = document.documentElement;
+  root.style.removeProperty('--sheet-h');
+  root.dataset.sheet = state;
   fitPhone();
 }
 
+const SHEET_ORDER = ['peek', 'half', 'full'];
+/** 각 단계의 실제 높이(px) — CSS 변수에서 읽는다 */
+function sheetHeights() {
+  const probe = document.createElement('div');
+  probe.style.cssText = 'position:fixed;visibility:hidden;pointer-events:none';
+  document.body.appendChild(probe);
+  const out = SHEET_ORDER.map((st) => {
+    probe.style.height = `var(--sheet-${st})`;
+    return probe.getBoundingClientRect().height;
+  });
+  probe.remove();
+  return out;
+}
+
+// 모바일 바텀시트: 손잡이 띠·입력판 제목줄을 끌면 손가락을 따라 움직이고, 놓으면 가까운 높이(작게/반/크게)에 붙는다.
+// 그냥 누르면 작게↔반 전환. 브라우저가 동작을 가로채면(pointercancel) 원래 높이로 돌아간다.
 function bindSheet() {
-  const handle = $('[data-sheet-handle]');
+  const side = $('[data-side]');
+  const root = document.documentElement;
   setSheet(S.sheet);
-  let startY = null, moved = false;
-  handle.addEventListener('pointerdown', (e) => { startY = e.clientY; moved = false; handle.setPointerCapture(e.pointerId); });
-  handle.addEventListener('pointermove', (e) => { if (startY != null && Math.abs(e.clientY - startY) > 8) moved = true; });
-  handle.addEventListener('pointerup', (e) => {
-    if (startY == null) return;
-    const dy = e.clientY - startY;
-    startY = null;
-    const order = ['peek', 'half', 'full'];
-    const i = order.indexOf(S.sheet);
-    if (!moved) return setSheet(S.sheet === 'peek' ? 'half' : S.sheet === 'half' ? 'full' : 'half');
-    if (dy < -40) setSheet(order[Math.min(2, i + 1)]);
-    else if (dy > 40) setSheet(order[Math.max(0, i - 1)]);
+  let drag = null; // { id, y0, h0, t0, moved, lastY, lastT }
+
+  const zone = (e) => mq.matches && e.target.closest('[data-sheet-handle], .panel__head, .list__grab');
+  side.addEventListener('pointerdown', (e) => {
+    if (!zone(e) || e.button > 0) return;
+    drag = { id: e.pointerId, y0: e.clientY, h0: side.getBoundingClientRect().height, t0: e.timeStamp, moved: false, lastY: e.clientY, lastT: e.timeStamp, el: e.target };
+    // 손가락이 위쪽 미리보기(iframe) 위로 올라가도 신호를 빼앗기지 않게: 누르는 동안 iframe 은 신호를 안 받는다
+    root.classList.add('is-sheet-press');
+    // 손잡이 띠는 버튼이 없으니 바로 붙잡는다(제목줄은 버튼 탭을 살리려고 움직인 뒤에 붙잡는다)
+    if (e.target.closest('[data-sheet-handle]')) side.setPointerCapture(e.pointerId);
+  });
+  // 손가락이 편집판 밖으로 나가도 놓치지 않게 화면 전체에서 받는다
+  window.addEventListener('pointermove', (e) => {
+    if (!drag || e.pointerId !== drag.id) return;
+    const dy = e.clientY - drag.y0;
+    if (!drag.moved) {
+      if (Math.abs(dy) < 6) return;
+      drag.moved = true;
+      if (!side.hasPointerCapture(e.pointerId)) side.setPointerCapture(e.pointerId);
+      root.classList.add('is-sheet-drag');
+    }
+    const [hp, , hf] = sheetHeights();
+    const h = Math.max(hp * 0.8, Math.min(hf * 1.03, drag.h0 - dy));
+    root.style.setProperty('--sheet-h', `${h}px`);
+    drag.vY = (e.clientY - drag.lastY) / Math.max(1, e.timeStamp - drag.lastT);
+    drag.lastY = e.clientY;
+    drag.lastT = e.timeStamp;
+    e.preventDefault();
+  }, { passive: false });
+  const end = (e, cancelled) => {
+    if (!drag || e.pointerId !== drag.id) return;
+    const d = drag;
+    drag = null;
+    root.classList.remove('is-sheet-drag', 'is-sheet-press');
+    if (!d.moved) {
+      // 단순 탭: 손잡이 띠만 전환(제목줄의 버튼 누르기는 그대로 둔다)
+      if (!cancelled && d.el.closest('[data-sheet-handle]')) setSheet(S.sheet === 'peek' ? 'half' : S.sheet === 'half' ? 'peek' : 'half');
+      return;
+    }
+    if (cancelled) return setSheet(S.sheet);
+    const hs = sheetHeights();
+    const cur = side.getBoundingClientRect().height;
+    let target;
+    if (Math.abs(d.vY ?? 0) > 0.6) {
+      // 빠르게 튕기면 그 방향으로 한 칸
+      const i = SHEET_ORDER.indexOf(S.sheet);
+      target = SHEET_ORDER[Math.max(0, Math.min(2, i + (d.vY < 0 ? 1 : -1)))];
+    } else {
+      target = SHEET_ORDER[hs.reduce((bi, h, i) => (Math.abs(h - cur) < Math.abs(hs[bi] - cur) ? i : bi), 0)];
+    }
+    setSheet(target);
+    // 끌기 뒤에 따라오는 클릭(뒤로가기·토글 오작동)을 한 번 막는다
+    side.addEventListener('click', (ev) => { ev.stopPropagation(); ev.preventDefault(); }, { capture: true, once: true });
+  };
+  window.addEventListener('pointerup', (e) => end(e, false));
+  window.addEventListener('pointercancel', (e) => end(e, true));
+
+  $('[data-sheet-handle]').addEventListener('keydown', (e) => {
+    if (e.key !== 'Enter' && e.key !== ' ') return;
+    e.preventDefault();
+    setSheet(SHEET_ORDER[(SHEET_ORDER.indexOf(S.sheet) + 1) % 3]);
+  });
+
+  // 휴대폰에서 입력칸을 누르면(키보드가 올라오면) 판을 크게 펼친다
+  side.addEventListener('focusin', (e) => {
+    if (mq.matches && e.target.matches('input:not([type=checkbox]):not([type=file]), textarea, select') && S.sheet !== 'full') setSheet('full');
   });
 }
 

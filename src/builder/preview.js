@@ -27,8 +27,16 @@ function render({ config, mode = 'guest', today = todayKst() }) {
   last = { config: c, mode, today };
   const y = window.scrollY;
   dispose?.();
+  dispose = null;
   applyTheme(c.theme);
-  app.innerHTML = renderInvitation(c, { mode, today, resolveAsset, ua: navigator.userAgent, privacyEnforced: true });
+  try {
+    app.innerHTML = renderInvitation(c, { mode, today, resolveAsset, ua: navigator.userAgent, privacyEnforced: true });
+  } catch (err) {
+    // 그리기에 실패해도 미리보기가 굳지 않게 — 다음 입력 때 다시 그린다
+    console.error(err);
+    app.innerHTML = '<p class="error">미리보기를 그리지 못했어요. 방금 고친 칸을 확인하거나 되돌리기를 눌러 주세요.</p>';
+    return;
+  }
   dispose = bindInvitation(app, c, {
     noReveal: true,
     shareUrl: 'https://example.com/미리보기',

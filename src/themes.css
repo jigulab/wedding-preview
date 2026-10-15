@@ -46,7 +46,8 @@
 [data-mood='editorial'] .sec__title { font-size: 26px; font-weight: 800; letter-spacing: -.03em; }
 [data-mood='editorial'] .eyebrow { font-style: normal; letter-spacing: .2em; font-size: 12px; font-family: 'Pretendard Variable', sans-serif; font-weight: 600; }
 [data-mood='editorial'] .eyebrow--script { font-family: var(--font-display); font-style: italic; font-size: 28px; letter-spacing: 0; text-transform: none; font-weight: 500; }
-[data-mood='editorial'] .parents, [data-mood='editorial'] .cal__date, [data-mood='editorial'] .dday-text, [data-mood='editorial'] .gal__count { text-align: center; }
+[data-mood='editorial'] .parents, [data-mood='editorial'] [data-section='calendar'], [data-mood='editorial'] .gal__count, [data-mood='editorial'] .flower { text-align: center; }
+[data-mood='editorial'] .venue__acts { justify-content: flex-start; }
 [data-mood='editorial'] .sec > .btn, [data-mood='editorial'] .countdown { margin-left: auto; margin-right: auto; }
 [data-mood='editorial'] .parents + .btn { display: flex; width: max-content; }
 .cover--magazine { position: relative; height: min(100svh, 780px); min-height: 600px; overflow: hidden; color: #fff; background: #111; }
