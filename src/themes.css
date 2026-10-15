@@ -1,0 +1,100 @@
+/* 무드별 색·글꼴 토큰과 커버 배치. 무드는 <html data-mood="..."> 로 고른다.
+   본문색은 배경 대비 4.5:1 이상으로 잡았다 (docs/research/03-design-ux.md ⑤-2). */
+
+/* ---------- 공통 커버 조각 ---------- */
+.cover__kicker { font-family: var(--font-en); letter-spacing: .32em; text-transform: uppercase; font-size: 12px; color: var(--ink-soft); }
+.cover__when { font-size: 16px; letter-spacing: .02em; }
+.cover__where { font-size: 15px; color: var(--ink-soft); }
+.cover__names-md { font-family: var(--font-display); font-size: 24px; font-weight: 500; letter-spacing: .04em; margin: 22px 0 10px; }
+.cover__names-md i { font-style: normal; color: var(--accent); margin: 0 6px; }
+
+/* ---------- 1. 로맨틱 와인 (기본) ---------- */
+:root, [data-mood='romantic'] {
+  --bg-outer: #d6cdc7; --bg-section: #f6f5f1; --bg-card: #fbfbfb;
+  --accent: #890808; --ink: #2b2523; --ink-soft: #6a615c; --line: #e4ddd7;
+  --font-body: 'Gowun Batang', serif; --font-display: 'Gowun Batang', serif;
+  --font-script: 'Pinyon Script', cursive; --font-en: 'Cormorant Garamond', Georgia, serif;
+}
+
+/* ---------- 2. 조용한 럭셔리 ---------- */
+[data-mood='luxury'] {
+  --bg-outer: #e9e3d8; --bg-section: #f5f0e8; --bg-card: #faf7f1;
+  --accent: #56704b; --ink: #3a3631; --ink-soft: #6e665b; --line: #e4dccf;
+  --font-body: 'Noto Serif KR', serif; --font-display: 'Noto Serif KR', serif;
+  --font-script: 'Cormorant Garamond', serif; --font-en: 'Cormorant Garamond', Georgia, serif;
+}
+[data-mood='luxury'] body { font-weight: 300; }
+[data-mood='luxury'] .eyebrow--script { font-style: italic; font-size: 24px; letter-spacing: .04em; }
+.cover--typo { padding: 120px 32px 0; text-align: center; background: var(--bg-section); }
+.cover--typo .cover__names-lg { font-family: var(--font-display); font-weight: 300; font-size: 34px; line-height: 1.5; margin: 34px 0 30px; letter-spacing: .12em; }
+.cover--typo .cover__names-lg span { display: block; }
+.cover--typo .cover__names-lg i { display: block; font-family: var(--font-en); font-size: 28px; color: var(--accent); margin: 2px 0; }
+.cover__rule { width: 40px; border: 0; border-top: 1px solid var(--ink-soft); margin: 0 auto 26px; }
+.cover--typo .cover__when { font-family: var(--font-en); letter-spacing: .2em; font-size: 15px; }
+.cover--typo .cover__where { margin-top: 4px; }
+.cover--typo .cover__frame { margin: 64px -32px 0; }
+.cover--typo .cover__photo { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
+
+/* ---------- 3. 에디토리얼 ---------- */
+[data-mood='editorial'] {
+  --bg-outer: #d9d9d6; --bg-section: #ffffff; --bg-card: #f4f4f2;
+  --accent: #9b2c2c; --ink: #111111; --ink-soft: #5c5c5c; --line: #e2e2e2;
+  --font-body: 'Pretendard Variable', Pretendard, sans-serif; --font-display: 'Playfair Display', serif;
+  --font-script: 'Playfair Display', serif; --font-en: 'Playfair Display', Georgia, serif;
+}
+[data-mood='editorial'] .sec { text-align: left; }
+[data-mood='editorial'] .sec__title { font-size: 26px; font-weight: 800; letter-spacing: -.03em; }
+[data-mood='editorial'] .eyebrow { font-style: normal; letter-spacing: .2em; font-size: 12px; font-family: 'Pretendard Variable', sans-serif; font-weight: 600; }
+[data-mood='editorial'] .eyebrow--script { font-family: var(--font-display); font-style: italic; font-size: 28px; letter-spacing: 0; text-transform: none; font-weight: 500; }
+[data-mood='editorial'] .parents, [data-mood='editorial'] .cal__date, [data-mood='editorial'] .dday-text, [data-mood='editorial'] .gal__count { text-align: center; }
+[data-mood='editorial'] .sec > .btn, [data-mood='editorial'] .countdown { margin-left: auto; margin-right: auto; }
+[data-mood='editorial'] .parents + .btn { display: flex; width: max-content; }
+.cover--magazine { position: relative; height: min(100svh, 780px); min-height: 600px; overflow: hidden; color: #fff; background: #111; }
+.cover--magazine .cover__photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) contrast(1.05); }
+.cover--magazine::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,.45) 0%, rgba(0,0,0,0) 30%, rgba(0,0,0,0) 50%, rgba(0,0,0,.65) 100%); }
+.cover__mast { position: absolute; z-index: 1; top: 18px; left: 22px; right: 22px; display: flex; justify-content: space-between; font-family: 'Pretendard Variable', sans-serif; font-weight: 700; font-size: 12px; letter-spacing: .3em; border-bottom: 1px solid rgba(255,255,255,.6); padding-bottom: 10px; }
+.cover__bigdate { position: absolute; z-index: 1; top: 52px; left: 18px; font-family: var(--font-display); font-weight: 500; font-size: 128px; line-height: .86; letter-spacing: -.04em; }
+.cover__bigdate span { display: block; }
+.cover__bigdate span + span { padding-left: 64px; font-style: italic; }
+.cover__credit { position: absolute; z-index: 1; left: 22px; right: 22px; bottom: 28px; font-size: 15px; line-height: 1.6; }
+.cover__credit .cover__en { font-family: var(--font-display); font-size: 30px; line-height: 1.15; margin-bottom: 12px; }
+.cover__credit .cover__en i { font-style: italic; font-weight: 400; font-size: .7em; }
+
+/* ---------- 4. 모던 클래식 ---------- */
+[data-mood='classic'] {
+  --bg-outer: #dfe1e6; --bg-section: #fbf9f5; --bg-card: #f4f1ea;
+  --accent: #7d6227; --ink: #1f2a44; --ink-soft: #5b6273; --line: #e3ddd0;
+  --font-body: 'Nanum Myeongjo', serif; --font-display: 'Nanum Myeongjo', serif;
+  --font-script: 'Cormorant Garamond', serif; --font-en: 'Cormorant Garamond', Georgia, serif;
+}
+[data-mood='classic'] .eyebrow { font-style: normal; letter-spacing: .3em; }
+[data-mood='classic'] .eyebrow--script { font-style: italic; font-size: 26px; letter-spacing: .02em; text-transform: none; }
+[data-mood='classic'] .cal__grid td.is-day span { background: var(--ink); }
+.cover--monogram { padding: 64px 28px 56px; text-align: center; background: var(--bg-section); }
+.cover__mono { display: inline-flex; align-items: center; justify-content: center; gap: 4px; width: 96px; height: 96px; border: 1px solid var(--accent); border-radius: 50%; font-family: var(--font-en); font-size: 34px; color: var(--ink); margin-bottom: 22px; position: relative; }
+.cover__mono::after { content: ''; position: absolute; inset: 5px; border: 1px solid var(--line); border-radius: 50%; }
+.cover__mono i { font-style: italic; font-size: 20px; color: var(--accent); }
+.cover--monogram .cover__kicker { margin-bottom: 28px; }
+.cover__arch { margin: 0 auto; width: 82%; border-radius: 999px 999px 0 0; overflow: hidden; }
+.cover__arch .cover__photo { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; }
+.cover--monogram .cover__names-md { margin-top: 30px; font-weight: 700; }
+
+/* ---------- 5. 필름 ---------- */
+[data-mood='film'] {
+  --bg-outer: #d8cfc2; --bg-section: #efe8dc; --bg-card: #f6f1e8;
+  --accent: #9e4526; --ink: #2f2a25; --ink-soft: #6b5d4c; --line: #ddd2c1;
+  --font-body: 'Gowun Batang', serif; --font-display: 'Gowun Batang', serif;
+  --font-script: 'Cormorant Garamond', serif; --font-en: 'Cormorant Garamond', Georgia, serif;
+}
+[data-mood='film'] .eyebrow--script { font-style: italic; font-size: 26px; text-transform: none; letter-spacing: 0; }
+[data-mood='film'] .gal__slide img, [data-mood='film'] .greeting__photo img { filter: sepia(.12) saturate(.9) contrast(.96); }
+.cover--polaroid { padding: 56px 26px 60px; text-align: center; background: var(--bg-section); position: relative; }
+.cover__pol { background: #fffdf8; padding: 14px 14px 18px; box-shadow: 0 10px 30px rgba(60, 40, 20, .18); transform: rotate(-1.6deg); position: relative; }
+.cover__pol .cover__photo { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; filter: sepia(.15) saturate(.92) contrast(.95); }
+.cover__pol::before { /* 필름 그레인 */
+  content: ''; position: absolute; left: 14px; right: 14px; top: 14px; aspect-ratio: 4 / 5; pointer-events: none; z-index: 1; opacity: .22; mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.cover__stamp { position: absolute; z-index: 2; right: 30px; bottom: 74px; font-family: 'Courier New', monospace; font-weight: 700; font-size: 17px; color: #ff8a3d; letter-spacing: .08em; text-shadow: 0 0 6px rgba(255, 120, 40, .7); }
+.cover__pol figcaption { font-family: var(--font-en); font-style: italic; font-size: 19px; color: var(--ink-soft); margin-top: 12px; }
+.cover--polaroid .cover__names-md { margin-top: 40px; }

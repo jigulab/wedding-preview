@@ -1,0 +1,240 @@
+{
+  "id": "sample",
+  "meta": {
+    "title": "길동♥길순 결혼합니다.",
+    "description": "5월 1일(토) 12:00PM | 예시웨딩홀",
+    "shareImage": "img/share.svg"
+  },
+  "wedding": {
+    "date": "2027-05-01",
+    "time": "12:00"
+  },
+  "cover": {
+    "photo": "img/main.svg",
+    "script": [
+      "Happy",
+      "Wedding",
+      "Day"
+    ],
+    "tagline": "WE’RE MARRIED"
+  },
+  "greeting": {
+    "eyebrow": "our wedding day",
+    "title": "소중한 분들을 초대합니다.",
+    "lines": [
+      "예시 인사말 첫째 줄입니다.",
+      "예시 인사말 둘째 줄입니다.",
+      "예시 인사말 셋째 줄입니다."
+    ],
+    "photo": "img/invitation.svg"
+  },
+  "groom": {
+    "name": "홍길동",
+    "nameEn": "Gildong",
+    "role": "아들",
+    "phone": "010-0000-0000",
+    "father": {
+      "name": "홍아버",
+      "phone": "010-0000-0001"
+    },
+    "mother": {
+      "name": "김어머",
+      "phone": ""
+    }
+  },
+  "bride": {
+    "name": "김길순",
+    "nameEn": "Gilsun",
+    "role": "딸",
+    "phone": "010-0000-0002",
+    "father": {
+      "name": "김아버",
+      "phone": "",
+      "deceased": true
+    },
+    "mother": {
+      "name": "이어머",
+      "phone": "010-0000-0003"
+    }
+  },
+  "venue": {
+    "name": "예시웨딩홀",
+    "hall": "2층 예시홀",
+    "address": "서울 중구 세종대로 110",
+    "tel": "02-000-0000",
+    "lat": 37.5663,
+    "lng": 126.9779,
+    "kakaoPlaceId": "",
+    "mapImage": "img/map.svg",
+    "routes": [
+      {
+        "title": "지하철",
+        "items": [
+          "1호선 시청역 4번 출구 도보 3분"
+        ]
+      }
+    ],
+    "guide": {
+      "parking": [
+        "건물 지하 주차장 2시간 무료",
+        "안내 데스크에서 차량 번호 등록"
+      ],
+      "meal": [
+        "예식 후 2층 연회장 뷔페",
+        "오전 11시 30분부터 식사 가능"
+      ],
+      "shuttle": []
+    }
+  },
+  "flowerNotice": "“화환은 정중히 사양합니다.”",
+  "accounts": {
+    "message": [
+      "전해주시는 축하의 마음은 소중하게 간직하여",
+      "좋은 부부의 모습으로 보답하겠습니다."
+    ],
+    "groomSide": [
+      {
+        "kakaopay": "",
+        "label": "신랑",
+        "name": "홍길동",
+        "bank": "예시은행",
+        "number": "000-00-000000",
+        "forParents": false
+      },
+      {
+        "kakaopay": "",
+        "label": "신랑 아버지",
+        "name": "홍아버",
+        "bank": "예시은행",
+        "number": "000-00-000001",
+        "forParents": true
+      }
+    ],
+    "brideSide": [
+      {
+        "kakaopay": "",
+        "label": "신부",
+        "name": "김길순",
+        "bank": "예시은행",
+        "number": "000-00-000002",
+        "forParents": false
+      }
+    ]
+  },
+  "gallery": [
+    "img/gallery/01.svg",
+    "img/gallery/02.svg",
+    "img/gallery/03.svg",
+    "img/gallery/04.svg",
+    "img/gallery/05.svg",
+    "img/gallery/06.svg",
+    "img/gallery/07.svg",
+    "img/gallery/08.svg"
+  ],
+  "notices": [
+    {
+      "title": "포토부스",
+      "photo": "",
+      "lines": [
+        "예시 안내 문구입니다."
+      ]
+    },
+    {
+      "title": "플라워 랩핑",
+      "photo": "img/notice.svg",
+      "lines": [
+        "예시 안내 문구입니다."
+      ]
+    }
+  ],
+  "theme": {
+    "mood": "romantic",
+    "accent": null
+  },
+  "music": {
+    "src": "",
+    "title": ""
+  },
+  "guestbook": {
+    "enabled": false
+  },
+  "rsvp": {
+    "enabled": false,
+    "askMeal": true
+  },
+  "privacy": {
+    "autoDeleteDays": 30,
+    "safeNotice": true
+  },
+  "parents": {
+    "greetingLines": [
+      "저희 아들 길동과 딸 길순이",
+      "사랑의 결실을 맺게 되었습니다.",
+      "바쁘시더라도 오셔서 축복해 주시면",
+      "감사하겠습니다."
+    ],
+    "accountsFilter": "parentsOnly"
+  },
+  "memorial": {
+    "enabled": true,
+    "afterDays": 1,
+    "lines": [
+      "저희 결혼식에 와주셔서 감사합니다."
+    ]
+  },
+  "sections": [
+    {
+      "id": "cover",
+      "enabled": true
+    },
+    {
+      "id": "greeting",
+      "enabled": true
+    },
+    {
+      "id": "parents",
+      "enabled": true
+    },
+    {
+      "id": "calendar",
+      "enabled": true
+    },
+    {
+      "id": "location",
+      "enabled": true
+    },
+    {
+      "id": "flower",
+      "enabled": true
+    },
+    {
+      "id": "accounts",
+      "enabled": true
+    },
+    {
+      "id": "gallery",
+      "enabled": true
+    },
+    {
+      "id": "notices",
+      "enabled": true
+    },
+    {
+      "id": "music",
+      "enabled": false
+    },
+    {
+      "id": "guestbook",
+      "enabled": false
+    },
+    {
+      "id": "rsvp",
+      "enabled": false
+    },
+    {
+      "id": "share",
+      "enabled": true
+    }
+  ],
+  "schemaVersion": 2
+}

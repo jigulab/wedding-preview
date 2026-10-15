@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="format-detection" content="telephone=no" />
+  <title>모바일 청첩장</title>
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="" />
+  <meta property="og:description" content="" />
+  <meta property="og:image" content="" />
+  <script>
+    // 주소에 ?c= 가 없으면(사이트 첫 주소) 서비스 소개 페이지로 보낸다
+    if (!new URLSearchParams(location.search).has('c')) location.replace('builder/');
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="src/style.css" />
+  <link rel="stylesheet" href="src/themes.css" />
+</head>
+<body>
+  <main id="app" class="card" aria-live="polite">
+    <p class="loading">청첩장을 불러오는 중…</p>
+  </main>
+  <script type="module" src="src/app.js"></script>
+</body>
+</html>

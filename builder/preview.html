@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>미리보기</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="../src/style.css" />
+  <link rel="stylesheet" href="../src/themes.css" />
+  <style>
+    /* 편집기에서 누를 수 있는 섹션 표시 */
+    html[data-editing] [data-section] { cursor: pointer; }
+    html[data-editing] [data-section].is-focus { outline: 2px solid #3b82f6; outline-offset: -2px; }
+  </style>
+</head>
+<body>
+  <main id="app" class="card"><p class="loading">미리보기를 준비하는 중…</p></main>
+  <script type="module" src="../src/builder/preview.js"></script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>디자인 시안 비교</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+  <style>
+    :root { --bg: #f2f0ec; --ink: #1d1b19; --soft: #6d6863; --line: #dedad3; color-scheme: light; }
+    * { box-sizing: border-box; margin: 0; }
+    body { background: var(--bg); color: var(--ink); font-family: 'Pretendard Variable', sans-serif; padding: 40px 24px 60px; }
+    header { max-width: 1400px; margin: 0 auto 28px; }
+    h1 { font-size: 26px; letter-spacing: -.02em; }
+    header p { color: var(--soft); margin-top: 6px; font-size: 15px; }
+    .grid { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 28px; }
+    figure { display: flex; flex-direction: column; align-items: center; }
+    .phone { width: 300px; height: 620px; border-radius: 36px; background: #111; padding: 10px; box-shadow: 0 18px 40px rgba(0,0,0,.18); }
+    .phone iframe { width: 375px; height: 804px; border: 0; border-radius: 28px; transform: scale(.7467); transform-origin: 0 0; background: #fff; }
+    .screen { width: 280px; height: 600px; overflow: hidden; border-radius: 28px; }
+    figcaption { margin-top: 14px; text-align: center; }
+    figcaption b { display: block; font-size: 17px; }
+    figcaption span { color: var(--soft); font-size: 14px; }
+    figcaption a { display: inline-block; margin-top: 8px; font-size: 14px; color: var(--ink); border-bottom: 1px solid var(--ink); }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>디자인 시안</h1>
+    <p>내용은 같고 디자인만 다릅니다. 휴대폰 화면 안에서 스크롤해 보거나, "크게 보기"로 새 창에서 열어 보세요.</p>
+  </header>
+  <main class="grid" id="grid"></main>
+  <script type="module">
+    import { MOODS } from './src/themes.js';
+    const c = new URLSearchParams(location.search).get('c') || 'sample';
+    document.getElementById('grid').innerHTML = Object.entries(MOODS).map(([id, m], i) => `
+      <figure>
+        <div class="phone"><div class="screen"><iframe src="index.html?c=${encodeURIComponent(c)}&mood=${id}" title="${m.name} 시안" loading="lazy"></iframe></div></div>
+        <figcaption><b>${i + 1}. ${m.name}</b><span>${m.desc}</span><br><a href="index.html?c=${encodeURIComponent(c)}&mood=${id}" target="_blank">크게 보기</a></figcaption>
+      </figure>`).join('');
+  </script>
+</body>
+</html>
