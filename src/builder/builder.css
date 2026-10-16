@@ -183,25 +183,15 @@ html[data-sheet='full'] { --sheet-h: var(--sheet-full); }
 .photo.is-over, .gal-grid.is-over { outline: 2px dashed var(--b-focus); outline-offset: 4px; }
 
 /* 디자인 고르기 */
-.moods { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.moods { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
 .mood, .wmood { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; padding: 10px; border: 1.5px solid var(--b-line) !important; border-radius: 14px; text-align: left; background: #fff !important; }
 .mood:hover, .wmood:hover { border-color: var(--b-line-2) !important; }
 .mood.is-on, .wmood.on { border-color: var(--b-ink) !important; box-shadow: 0 0 0 1px var(--b-ink); }
 .mood b, .wmood b { font-size: 14px; margin-top: 8px; }
 .mood small, .wmood small { font-size: 12px; color: var(--b-faint); }
-.mood__sw { width: 100%; aspect-ratio: 16 / 10; border-radius: 9px; position: relative; overflow: hidden; }
-.mood__sw::after { content: ''; position: absolute; left: 14%; right: 14%; top: 34%; height: 2px; box-shadow: 0 0 0 0 transparent; }
-[data-mood-swatch='romantic'] { background: linear-gradient(160deg, #b9aea6 0 55%, #f6f5f1 55%); }
-[data-mood-swatch='romantic']::before { content: 'Happy Day'; position: absolute; left: 12%; top: 18%; font-family: 'Pinyon Script', cursive; color: #fff; font-size: 20px; }
-[data-mood-swatch='luxury'] { background: #f5f0e8; }
-[data-mood-swatch='luxury']::before { content: 'A & B'; position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: #3a3631; font-family: serif; letter-spacing: .3em; font-size: 13px; }
-[data-mood-swatch='editorial'] { background: linear-gradient(#111 0 100%); }
-[data-mood-swatch='editorial']::before { content: '02.27'; position: absolute; left: 10%; top: 10%; color: #fff; font-family: 'Playfair Display', Georgia, serif; font-size: 26px; font-weight: 600; letter-spacing: -.03em; }
-[data-mood-swatch='classic'] { background: #fbf9f5; }
-[data-mood-swatch='classic']::before { content: 'J&S'; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 40px; height: 40px; border: 1px solid #7d6227; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: Georgia, serif; color: #1f2a44; font-size: 13px; }
-[data-mood-swatch='film'] { background: #efe8dc; }
-[data-mood-swatch='film']::before { content: ''; position: absolute; left: 30%; top: 12%; width: 40%; height: 76%; background: #fffdf8; box-shadow: 0 4px 10px rgba(60,40,20,.2); transform: rotate(-3deg); }
-[data-mood-swatch='film']::after { content: "'27 2 27"; position: absolute; right: 32%; bottom: 26%; color: #ff8a3d; font: 700 9px 'Courier New', monospace; top: auto; left: auto; height: auto; }
+.mood__sw { width: 100%; aspect-ratio: 9 / 16; border-radius: 9px; position: relative; overflow: hidden; background: var(--b-bg); box-shadow: inset 0 0 0 1px rgba(0,0,0,.05); }
+.mood__sw img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.mood__sw em { position: absolute; left: 6px; bottom: 6px; font-style: normal; font-size: 10.5px; font-weight: 700; background: rgba(255,255,255,.92); color: var(--b-ink); padding: 2px 7px; border-radius: 999px; }
 
 .swatches { display: flex; flex-wrap: wrap; gap: 8px; }
 .sw { display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 14px 0 8px; border-radius: 999px; border: 1.5px solid var(--b-line) !important; background: #fff !important; font-size: 13.5px; }
@@ -275,7 +265,7 @@ html[data-sheet='full'] { --sheet-h: var(--sheet-full); }
 .wiz__photo-empty b { width: 48px; height: 48px; border-radius: 50%; background: #fff; border: 1px solid var(--b-line-2); display: inline-flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 400; color: var(--b-ink); }
 .wiz__photo.has { border-style: solid !important; }
 .wiz__photo img { width: 100%; height: 100%; object-fit: contain; background: var(--b-bg); }
-.wiz__moods { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.wiz__moods { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; max-height: 58vh; overflow-y: auto; padding: 2px; }
 
 /* ---------- 모바일: 위 미리보기 + 아래 바텀시트 ---------- */
 @media (max-width: 899px) {

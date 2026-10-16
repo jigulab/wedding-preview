@@ -65,7 +65,23 @@ export function formatDate(ymd) {
     short: `${mo}월 ${d}일(${WEEK_KO[w]})`,
     weekEn: WEEK_EN[w],
     weekKo: WEEK_KO[w],
+    weekEnLong: WEEK_EN_LONG[w],
+    monthEn: MONTH_EN[mo - 1],
+    monthEnShort: MONTH_EN[mo - 1].slice(0, 3),
+    dayOrd: `${d}${ordinal(d)}`,
+    yy: String(y).slice(2),
+    mm: String(mo).padStart(2, '0'),
+    dd: String(d).padStart(2, '0'),
+    slash: `${y} / ${String(mo).padStart(2, '0')} / ${String(d).padStart(2, '0')}`,
   };
+}
+
+const WEEK_EN_LONG = ['SUNDAY', 'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY'];
+const MONTH_EN = ['JANUARY', 'FEBRUARY', 'MARCH', 'APRIL', 'MAY', 'JUNE', 'JULY', 'AUGUST', 'SEPTEMBER', 'OCTOBER', 'NOVEMBER', 'DECEMBER'];
+/** 1→ST 2→ND 3→RD, 11~13→TH */
+export function ordinal(d) {
+  if (d % 100 >= 11 && d % 100 <= 13) return 'TH';
+  return ['TH', 'ST', 'ND', 'RD'][d % 10] ?? 'TH';
 }
 
 export { WEEK_KO };

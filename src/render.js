@@ -99,6 +99,101 @@ function cover(c, ctx) {
       <p class="cover__where">${place}</p>
     </section>`;
   }
+
+  // ---- 2026-10-16 추가 커버 8종 (구성만 참고, 자산은 직접) ----
+  const spaced = (name = '') => esc([...name].join(' '));
+  const g = c.groom.name, b = c.bride.name;
+  const shortKo = d ? `${esc(d.slash.slice(0, 4))}년 ${+mm}월 ${+dd}일 ${esc(d.weekKo)}요일 ${esc(t?.ko ?? '')}` : '';
+  const enTime = t ? esc(t.en.replace(/^(\d+):(\d+)(AM|PM)$/, '$1 : $2 $3')) : '';
+
+  if (type === 'daylight') {
+    return `
+    <section class="cover cover--daylight" data-section="cover">
+      <div class="cover__head">
+        <p class="cover__slash">${d ? esc(d.slash) : ''}</p>
+        <p class="cover__week">${d ? esc(d.weekEnLong) : ''}</p>
+      </div>
+      <figure class="cover__fade">${photo}</figure>
+      <h1 class="cover__names-sp">${spaced(g)}<i>·</i>${spaced(b)}</h1>
+      <p class="cover__when">${shortKo}</p>
+      <p class="cover__where">${place}</p>
+    </section>`;
+  }
+  if (type === 'tone') {
+    return `
+    <section class="cover cover--tone" data-section="cover">
+      <div class="cover__ghost" aria-hidden="true"><span class="cover__ghost-s">We’re</span><span>GETTING</span><span>MARRIED</span></div>
+      <h1 class="cover__pair"><span>${spaced(g)}</span><span>${spaced(b)}</span></h1>
+      <p class="cover__when">${shortKo}</p>
+      <p class="cover__where">${place}</p>
+    </section>`;
+  }
+  if (type === 'minimal') {
+    return `
+    <section class="cover cover--minimal" data-section="cover">
+      <p class="cover__inv">INVITATION</p>
+      <p class="cover__en-date">${d ? `${esc(d.weekEnLong)}<br>${esc(d.monthEn)} ${esc(d.dayOrd)}<br>${enTime}` : ''}</p>
+      <span class="cover__vline" aria-hidden="true"></span>
+      <h1 class="cover__stack"><span>${spaced(g)}</span><span>${spaced(b)}</span></h1>
+      <p class="cover__where">${place}</p>
+    </section>`;
+  }
+  if (type === 'oval') {
+    return `
+    <section class="cover cover--oval" data-section="cover">
+      <p class="cover__headline">WITH LOVE</p>
+      <figure class="cover__ovalframe">${photo}</figure>
+      <p class="cover__oval-date">${d ? `${esc(d.dd)} ${esc(d.monthEnShort)} ${esc(d.slash.slice(0, 4))} · ${esc(t?.en ?? '')}` : ''}</p>
+      <p class="cover__oval-msg">We invite you to be part of our story.</p>
+      <h1 class="cover__names-md">${esc(g)} <i>·</i> ${esc(b)}</h1>
+    </section>`;
+  }
+  if (type === 'glass') {
+    return `
+    <section class="cover cover--glass" data-section="cover">
+      ${photo}
+      <div class="cover__glasscard">
+        <p class="cover__gk">Wedding Invitation</p>
+        <h1 class="cover__gn">${esc(firstName(g))} <i>♥</i> ${esc(firstName(b))}</h1>
+        <p class="cover__gd">${d ? `${esc(d.monthEn)} ${+dd}, ${esc(d.slash.slice(0, 4))} · ${esc(d.weekEn)} ${esc(t?.en ?? '')}` : ''}</p>
+        <p class="cover__gm">${place}</p>
+      </div>
+    </section>`;
+  }
+  if (type === 'line') {
+    return `
+    <section class="cover cover--line" data-section="cover">
+      <div class="cover__lrow"><span>${d ? `${esc(d.yy)}.${esc(d.mm)}.${esc(d.dd)}` : ''}</span><i></i><span>${esc(t?.en ?? '')}</span></div>
+      <figure class="cover__lphoto">${photo}</figure>
+      <h1 class="cover__lrow cover__lrow--names"><span>${esc(g)}</span><i></i><span>${esc(b)}</span></h1>
+      <p class="cover__when">${whenKo}</p>
+      <p class="cover__where">${place}</p>
+    </section>`;
+  }
+  if (type === 'hand') {
+    const pics = (c.gallery ?? []).filter((p) => p && p !== c.cover?.photo);
+    const second = pics[0] ?? c.cover?.photo;
+    return `
+    <section class="cover cover--hand" data-section="cover">
+      <div class="cover__snaps">
+        <figure class="cover__snap cover__snap--a">${photo}</figure>
+        <figure class="cover__snap cover__snap--b"><img src="${esc(ctx.asset(second, 'cover'))}" alt="" loading="lazy"></figure>
+      </div>
+      <h1 class="cover__hand">결혼합니다<small>${d ? `${esc(d.yy)}.${esc(d.mm)}.${esc(d.dd)}` : ''}</small></h1>
+      <p class="cover__names-sm">${esc(g)} · ${esc(b)}</p>
+      <p class="cover__where">${place}</p>
+    </section>`;
+  }
+  if (type === 'vertical') {
+    const col = (name = '') => [...name].map((ch) => `<span>${esc(ch)}</span>`).join('');
+    return `
+    <section class="cover cover--vertical" data-section="cover">
+      <h1 class="cover__vnames" aria-label="${esc(g)} 그리고 ${esc(b)}"><span class="cover__vcol">${col(g)}</span><i aria-hidden="true">/</i><span class="cover__vcol">${col(b)}</span></h1>
+      <figure class="cover__vphoto">${photo}</figure>
+      <p class="cover__when">${shortKo}</p>
+      <p class="cover__where">${place}</p>
+    </section>`;
+  }
   return `
   <section class="cover cover--script" data-section="cover">
     ${photo}

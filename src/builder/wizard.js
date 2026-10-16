@@ -69,7 +69,7 @@ export function runWizard({ processPhoto }) {
       return `<h2>어떤 분위기가 좋으세요?</h2>
         <div class="wiz__moods">${Object.entries(MOODS).map(([id, m]) => `
           <button type="button" class="wmood ${id === data.mood ? 'on' : ''}" data-w="mood" data-id="${id}" aria-pressed="${id === data.mood}">
-            <span class="mood__sw" data-mood-swatch="${id}"></span><b>${esc(m.name)}</b><small>${esc(m.desc)}</small>
+            <span class="mood__sw"><img src="../src/assets/moods/${id}.jpg" alt="" loading="lazy">${m.photoless ? '<em>사진 없어도 OK</em>' : ''}</span><b>${esc(m.name)}</b><small>${esc(m.desc)}</small>
           </button>`).join('')}</div>
         <p class="wiz__hint">언제든 바꿀 수 있고, 바꿔도 내용은 그대로예요.</p>`;
     }

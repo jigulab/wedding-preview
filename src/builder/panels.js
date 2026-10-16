@@ -349,7 +349,7 @@ function field(f, c, prefix, h) {
     case 'mood':
       return `<div class="f"><span class="f__label">디자인</span><div class="moods">${Object.entries(MOODS).map(([mid, m]) => `
         <button type="button" class="mood ${mid === h.mood ? 'is-on' : ''}" data-action="mood" data-id="${mid}" aria-pressed="${mid === h.mood}">
-          <span class="mood__sw" data-mood-swatch="${mid}"></span><b>${esc(m.name)}</b><small>${esc(m.desc)}</small>
+          <span class="mood__sw"><img src="../src/assets/moods/${mid}.jpg" alt="" loading="lazy">${m.photoless ? '<em>사진 없어도 OK</em>' : ''}</span><b>${esc(m.name)}</b><small>${esc(m.desc)}</small>
         </button>`).join('')}</div></div>`;
     case 'accent': {
       const m = MOODS[h.mood];

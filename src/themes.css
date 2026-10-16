@@ -99,3 +99,149 @@
 .cover__stamp { position: absolute; z-index: 2; right: 30px; bottom: 74px; font-family: 'Courier New', monospace; font-weight: 700; font-size: 17px; color: #ff8a3d; letter-spacing: .08em; text-shadow: 0 0 6px rgba(255, 120, 40, .7); }
 .cover__pol figcaption { font-family: var(--font-en); font-style: italic; font-size: 19px; color: var(--ink-soft); margin-top: 12px; }
 .cover--polaroid .cover__names-md { margin-top: 40px; }
+
+/* =====================================================================
+   2026-10-16 추가 8종 — 구성만 참고, 글꼴(OFL)·색·코드는 직접
+   ===================================================================== */
+
+/* 공통 */
+.cover__names-sm { font-family: var(--font-display); font-size: 17px; letter-spacing: .12em; margin-top: 14px; }
+
+/* ---------- 데이라이트: 큰 날짜 + 아래로 번지는 사진 ---------- */
+[data-mood='daylight'] {
+  --bg-outer: #e7e3dd; --bg-section: #fbfaf8; --bg-card: #f4f2ee;
+  --accent: #7f6141; --ink: #2b2926; --ink-soft: #645e57; --line: #e7e2db;
+  --font-body: 'Noto Serif KR', serif; --font-display: 'Noto Serif KR', serif;
+  --font-script: 'Cormorant Garamond', serif; --font-en: 'Cormorant Garamond', Georgia, serif;
+}
+[data-mood='daylight'] body { font-weight: 300; }
+[data-mood='daylight'] .eyebrow--script { font-style: italic; font-size: 26px; text-transform: none; letter-spacing: .02em; }
+.cover--daylight { text-align: center; background: var(--bg-section); padding-bottom: 54px; }
+.cover--daylight .cover__head { padding: 46px 24px 26px; }
+.cover__slash { font-family: var(--font-en); font-size: 38px; letter-spacing: .04em; line-height: 1.1; }
+.cover__week { font-family: var(--font-en); font-size: 14px; letter-spacing: .34em; color: var(--ink-soft); margin-top: 6px; }
+.cover__fade { position: relative; }
+.cover__fade .cover__photo { width: 100%; aspect-ratio: 4 / 5; object-fit: cover;
+  -webkit-mask-image: linear-gradient(#000 72%, transparent 100%); mask-image: linear-gradient(#000 72%, transparent 100%); }
+.cover__names-sp { font-family: var(--font-display); font-weight: 500; font-size: 21px; letter-spacing: .1em; margin: 6px 0 10px; }
+.cover__names-sp i { font-style: normal; color: var(--accent); margin: 0 14px; }
+
+/* ---------- 톤온톤(사진 없음): 배경색 계열 큰 글자 ---------- */
+[data-mood='tone'] {
+  --bg-outer: #e2dad1; --bg-section: #efe9e3; --bg-card: #f6f2ee;
+  --accent: #755c47; --ink: #3b3530; --ink-soft: #685f56; --line: #ded4c9;
+  --font-body: 'Gowun Batang', serif; --font-display: 'Gowun Batang', serif;
+  --font-script: 'Pinyon Script', cursive; --font-en: 'Cormorant Garamond', Georgia, serif;
+  --ghost: #dacfc3;
+}
+.cover--tone { position: relative; min-height: min(100svh, 760px); background: var(--bg-section); overflow: hidden; text-align: center; padding: 0 0 70px; display: flex; flex-direction: column; justify-content: flex-end; }
+.cover__ghost { position: absolute; left: -8px; right: -8px; top: 9%; display: flex; flex-direction: column; color: var(--ghost); line-height: .9; text-align: left; pointer-events: none; }
+.cover__ghost span { font-family: 'Cinzel', 'Cormorant Garamond', serif; font-size: min(25vw, 108px); letter-spacing: .01em; white-space: nowrap; }
+.cover__ghost .cover__ghost-s { font-family: 'Pinyon Script', cursive; font-size: min(22vw, 96px); margin-left: 4%; }
+.cover__pair { position: relative; display: flex; justify-content: center; gap: 56px; font-family: var(--font-display); font-weight: 700; font-size: 19px; letter-spacing: .12em; margin-bottom: 18px; }
+.cover--tone .cover__when, .cover--tone .cover__where { position: relative; }
+
+/* ---------- 미니멀 초대장(사진 없음) ---------- */
+[data-mood='minimal'] {
+  --bg-outer: #e6e6e3; --bg-section: #ffffff; --bg-card: #f6f6f4;
+  --accent: #1e1e1e; --ink: #1e1e1e; --ink-soft: #5c5c5c; --line: #e6e6e6;
+  --font-body: 'Nanum Myeongjo', serif; --font-display: 'Nanum Myeongjo', serif;
+  --font-script: 'Cormorant Garamond', serif; --font-en: 'Cormorant Garamond', Georgia, serif;
+}
+[data-mood='minimal'] .eyebrow { font-style: normal; letter-spacing: .3em; }
+[data-mood='minimal'] .eyebrow--script { font-style: italic; letter-spacing: .02em; text-transform: none; font-size: 24px; }
+.cover--minimal { min-height: min(100svh, 760px); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 70px 24px; background: var(--bg-section); }
+.cover__inv { font-family: var(--font-en); font-weight: 500; font-size: 40px; letter-spacing: .22em; margin-right: -.22em; }
+.cover__en-date { font-family: var(--font-en); font-size: 19px; letter-spacing: .08em; line-height: 1.5; margin-top: 30px; }
+.cover__vline { width: 1px; height: 96px; background: var(--ink-soft); opacity: .5; margin: 34px 0; }
+.cover__stack { display: flex; flex-direction: column; gap: 14px; font-family: var(--font-display); font-weight: 700; font-size: 20px; letter-spacing: .32em; margin-right: -.32em; }
+.cover--minimal .cover__where { margin-top: 30px; font-size: 14px; }
+
+/* ---------- 다크 오벌: 어두운 바탕 전체 ---------- */
+[data-mood='oval'] {
+  --bg-outer: #151513; --bg-section: #24231f; --bg-card: #2b2a25; --surface: #35332d; --on-accent: #24231f;
+  --accent: #d8b98a; --ink: #eee8dc; --ink-soft: #b8b0a2; --line: #47443b;
+  --font-body: 'Gowun Batang', serif; --font-display: 'Gowun Batang', serif;
+  --font-script: 'Cormorant Garamond', serif; --font-en: 'Cormorant Garamond', Georgia, serif;
+  --sat: #9cbbe0; --sun: #e79a8e;
+  color-scheme: dark;
+}
+[data-mood='oval'] .eyebrow--script { font-style: italic; font-size: 26px; text-transform: none; letter-spacing: .02em; }
+.cover--oval { text-align: center; padding: 54px 26px 60px; background: var(--bg-section); color: var(--ink); }
+.cover__headline { position: relative; z-index: 1; font-family: var(--font-en); font-weight: 400; font-size: 50px; letter-spacing: .06em; line-height: 1; margin-bottom: -22px; }
+.cover__ovalframe { width: 76%; margin: 0 auto; border-radius: 50%; overflow: hidden; border: 1px solid rgba(238, 232, 220, .35); padding: 8px; }
+.cover__ovalframe .cover__photo { width: 100%; aspect-ratio: 3 / 4.2; object-fit: cover; border-radius: 50%; display: block; }
+.cover__oval-date { font-family: var(--font-en); font-style: italic; font-size: 19px; margin-top: 26px; letter-spacing: .04em; }
+.cover__oval-msg { font-family: var(--font-en); font-style: italic; font-size: 16px; color: var(--ink-soft); }
+.cover--oval .cover__names-md { margin-top: 18px; }
+
+/* ---------- 글래스: 꽉 찬 사진 + 반투명 카드 ---------- */
+[data-mood='glass'] {
+  --bg-outer: #dfe3dd; --bg-section: #eef0ec; --bg-card: #f6f7f4;
+  --accent: #3f6a52; --ink: #253028; --ink-soft: #57635a; --line: #dbe0d9;
+  --font-body: 'Pretendard Variable', Pretendard, sans-serif; --font-display: 'Pretendard Variable', Pretendard, sans-serif;
+  --font-script: 'Cormorant Garamond', serif; --font-en: 'Cormorant Garamond', Georgia, serif;
+}
+[data-mood='glass'] .sec__title { font-weight: 600; letter-spacing: -.02em; }
+[data-mood='glass'] .eyebrow--script { font-style: italic; text-transform: none; letter-spacing: .02em; font-size: 26px; }
+.cover--glass { position: relative; height: min(100svh, 780px); min-height: 600px; overflow: hidden; color: #fff; }
+.cover--glass .cover__photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+/* 밝은 사진에서도 흰 글자가 읽히게 아래쪽을 어둡게 깐다 */
+.cover--glass::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0) 45%, rgba(0,0,0,.45) 100%); pointer-events: none; }
+.cover--glass .cover__glasscard { z-index: 1; text-shadow: 0 1px 8px rgba(0,0,0,.25); }
+.cover__glasscard { position: absolute; left: 18px; right: 18px; bottom: 26px; padding: 22px 20px 20px; text-align: center; border-radius: 18px;
+  background: rgba(24, 30, 26, .46); border: 1px solid rgba(255, 255, 255, .3); backdrop-filter: blur(14px) saturate(1.2); -webkit-backdrop-filter: blur(14px) saturate(1.2); box-shadow: 0 10px 30px rgba(0, 0, 0, .15); }
+.cover__gk { font-family: var(--font-en); font-style: italic; font-size: 17px; opacity: .9; }
+.cover__gn { font-size: 24px; font-weight: 600; letter-spacing: .04em; margin: 4px 0 8px; }
+.cover__gn i { font-style: normal; font-size: .7em; margin: 0 6px; opacity: .9; }
+.cover__gd { font-size: 14px; letter-spacing: .08em; }
+.cover__gm { font-size: 13px; opacity: .85; margin-top: 2px; }
+
+/* ---------- 라인 앤 네임 ---------- */
+[data-mood='line'] {
+  --bg-outer: #e6e2db; --bg-section: #f7f6f3; --bg-card: #fdfcfa;
+  --accent: #5b4a3a; --ink: #262421; --ink-soft: #625d56; --line: #e2ddd5;
+  --font-body: 'Nanum Myeongjo', serif; --font-display: 'Nanum Myeongjo', serif;
+  --font-script: 'Cormorant Garamond', serif; --font-en: 'Cormorant Garamond', Georgia, serif;
+}
+[data-mood='line'] .eyebrow--script { font-style: italic; text-transform: none; letter-spacing: .02em; font-size: 26px; }
+.cover--line { padding: 40px 26px 56px; background: var(--bg-section); text-align: center; }
+.cover__lrow { display: flex; align-items: center; gap: 14px; font-family: var(--font-en); font-size: 20px; letter-spacing: .06em; }
+.cover__lrow i { flex: 1; height: 1px; background: var(--ink); opacity: .45; }
+.cover__lphoto { margin: 18px 0 22px; }
+.cover__lphoto .cover__photo { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
+.cover__lrow--names { font-family: var(--font-display); font-weight: 700; font-size: 19px; letter-spacing: .14em; margin-bottom: 18px; }
+
+/* ---------- 손글씨: 테이프 사진 두 장 ---------- */
+[data-mood='hand'] {
+  --bg-outer: #e9e3d9; --bg-section: #f8f5f0; --bg-card: #fffdf9;
+  --accent: #a8402c; --ink: #2f2b27; --ink-soft: #655d55; --line: #e6dfd3;
+  --font-body: 'Gowun Dodum', sans-serif; --font-display: 'Gowun Dodum', sans-serif;
+  --font-script: 'Nanum Pen Script', cursive; --font-en: 'Cormorant Garamond', Georgia, serif;
+}
+[data-mood='hand'] .eyebrow--script { font-family: 'Nanum Pen Script', cursive; font-size: 30px; text-transform: none; letter-spacing: 0; }
+.cover--hand { padding: 40px 22px 54px; background: var(--bg-section); text-align: center; }
+.cover__snaps { position: relative; display: grid; gap: 16px; }
+.cover__snap { position: relative; background: #fff; padding: 9px; box-shadow: 0 8px 22px rgba(70, 50, 30, .16); }
+.cover__snap img { width: 100%; aspect-ratio: 5 / 4; object-fit: cover; display: block; }
+.cover__snap--a { transform: rotate(-2.2deg); margin-right: 18px; }
+.cover__snap--b { transform: rotate(1.8deg); margin-left: 22px; }
+.cover__snap::before { content: ''; position: absolute; top: -12px; left: 50%; width: 82px; height: 24px; transform: translateX(-50%) rotate(-3deg); background: rgba(236, 226, 205, .82); box-shadow: 0 1px 2px rgba(0, 0, 0, .08); z-index: 1; }
+.cover__snap--b::before { transform: translateX(-50%) rotate(4deg); }
+.cover__hand { font-family: 'Nanum Pen Script', cursive; font-weight: 400; font-size: 58px; line-height: 1; margin-top: 30px; color: var(--ink); }
+.cover__hand small { display: block; font-size: 30px; margin-top: 6px; color: var(--accent); }
+
+/* ---------- 세로 이름 ---------- */
+[data-mood='vertical'] {
+  --bg-outer: #e5dfd5; --bg-section: #f5f1ea; --bg-card: #fbf9f5;
+  --accent: #6d5a42; --ink: #2e2a25; --ink-soft: #655c52; --line: #e2dbcf;
+  --font-body: 'Noto Serif KR', serif; --font-display: 'Noto Serif KR', serif;
+  --font-script: 'Cormorant Garamond', serif; --font-en: 'Cormorant Garamond', Georgia, serif;
+}
+[data-mood='vertical'] .eyebrow--script { font-style: italic; text-transform: none; letter-spacing: .02em; font-size: 26px; }
+.cover--vertical { padding: 44px 26px 56px; background: var(--bg-section); text-align: center; }
+.cover__vnames { display: flex; justify-content: center; align-items: center; gap: 30px; font-family: var(--font-display); font-weight: 600; font-size: 22px; margin-bottom: 28px; }
+.cover__vcol { display: flex; flex-direction: column; line-height: 1.5; }
+.cover__vnames i { font-style: normal; font-weight: 300; font-size: 30px; color: var(--accent); transform: translateY(2px); }
+.cover__vphoto .cover__photo { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
+.cover--vertical .cover__when { margin-top: 24px; }

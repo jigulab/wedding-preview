@@ -1,5 +1,7 @@
 /* 공통 레이아웃. 색·글꼴 토큰은 themes.css(무드별)에 있다. */
 :root {
+  --surface: #fff;      /* 버튼·칸 바탕 — 어두운 무드가 바꾼다 */
+  --on-accent: #fff;    /* 포인트색 위 글자 */
   --sat: #2f6fb0;
   --sun: #c0392b;
   --w: 430px;
@@ -94,7 +96,7 @@ a { color: inherit; text-decoration: none; }
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: 6px;
   min-height: 44px; padding: 0 22px; border-radius: 999px;
-  border: 1px solid var(--line); background: #fff; font-size: 16px;
+  border: 1px solid var(--line); background: var(--surface); font-size: 16px;
 }
 .btn--accent { border-color: var(--accent); color: var(--accent); }
 .btn--block { width: 100%; border-radius: 10px; }
@@ -121,7 +123,7 @@ a { color: inherit; text-decoration: none; }
 .contact__acts { display: flex; gap: 8px; }
 .icon-btn {
   width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--line);
-  display: inline-flex; align-items: center; justify-content: center; background: #fff;
+  display: inline-flex; align-items: center; justify-content: center; background: var(--surface);
 }
 .icon-btn svg { width: 18px; height: 18px; stroke: var(--ink); fill: none; stroke-width: 1.6; }
 
@@ -135,9 +137,9 @@ a { color: inherit; text-decoration: none; }
 .cal__grid td:last-child { color: var(--sat); }
 .cal__grid td.is-day span {
   display: inline-flex; width: 34px; height: 34px; border-radius: 50%;
-  background: var(--accent); color: #fff; align-items: center; justify-content: center; font-weight: 700;
+  background: var(--accent); color: var(--on-accent); align-items: center; justify-content: center; font-weight: 700;
 }
-.dday { display: inline-block; margin: 30px 0 14px; padding: 8px 22px; border-radius: 999px; border: 1px solid var(--line); background: #fff; font-family: var(--font-en); font-size: 22px; letter-spacing: .08em; color: var(--accent); }
+.dday { display: inline-block; margin: 30px 0 14px; padding: 8px 22px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); font-family: var(--font-en); font-size: 22px; letter-spacing: .08em; color: var(--accent); }
 .dday-text b { color: var(--accent); }
 
 /* 6. 오시는 길 */
@@ -145,7 +147,7 @@ a { color: inherit; text-decoration: none; }
 .venue__map { margin: 24px -28px 0; position: relative; }
 .venue__map img { width: 100%; height: auto; }
 .venue__map-btn { position: absolute; right: 12px; bottom: 12px; min-height: 44px; font-size: 14px; padding: 0 16px; }
-.navi { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--line); border-radius: 10px; margin-top: 16px; overflow: hidden; background: #fff; }
+.navi { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--line); border-radius: 10px; margin-top: 16px; overflow: hidden; background: var(--surface); }
 .navi a { min-height: 48px; display: flex; align-items: center; justify-content: center; font-size: 16px; }
 .navi a + a { border-left: 1px solid var(--line); }
 .routes { text-align: left; margin-top: 32px; }
@@ -159,7 +161,7 @@ a { color: inherit; text-decoration: none; }
 
 /* 8. 마음 전하실 곳 */
 .acc { text-align: left; margin-top: 8px; }
-.acc__group { background: #fff; border: 1px solid var(--line); border-radius: 10px; margin-bottom: 12px; overflow: hidden; }
+.acc__group { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; margin-bottom: 12px; overflow: hidden; }
 .acc__head { width: 100%; min-height: 52px; display: flex; justify-content: space-between; align-items: center; padding: 0 18px; font-size: 15px; }
 .acc__head::after { content: ''; width: 8px; height: 8px; border-right: 1.5px solid var(--ink-soft); border-bottom: 1.5px solid var(--ink-soft); transform: rotate(45deg); transition: transform .2s; margin-top: -4px; }
 .acc__group.is-open .acc__head::after { transform: rotate(-135deg); margin-top: 4px; }
@@ -226,9 +228,9 @@ body.is-locked { position: fixed; left: 0; right: 0; overflow: hidden; }
 /* ---------- v2 섹션 ---------- */
 .flower { padding: 48px 28px; text-align: center; color: var(--ink-soft); }
 .venue__acts { display: flex; justify-content: center; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
-.chip { min-height: 40px; padding: 0 16px; border: 1px solid var(--line); border-radius: 999px; background: #fff; font-size: 15px; display: inline-flex; align-items: center; }
+.chip { min-height: 40px; padding: 0 16px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); font-size: 15px; display: inline-flex; align-items: center; }
 .guides { display: grid; gap: 10px; margin-top: 28px; text-align: left; }
-.guide { display: flex; gap: 14px; padding: 16px 18px; background: #fff; border: 1px solid var(--line); border-radius: 12px; }
+.guide { display: flex; gap: 14px; padding: 16px 18px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; }
 .guide__icon { flex: 0 0 36px; height: 36px; border-radius: 50%; background: var(--bg-section); display: inline-flex; align-items: center; justify-content: center; }
 .guide__icon svg { width: 19px; height: 19px; fill: none; stroke: var(--accent); stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
 .guide h3 { font-size: 16px; color: var(--ink); margin-bottom: 2px; }
@@ -236,23 +238,23 @@ body.is-locked { position: fixed; left: 0; right: 0; overflow: hidden; }
 .notice__title { font-size: 17px; color: var(--accent); margin-bottom: 10px; }
 
 .music { padding: 28px; display: flex; justify-content: center; background: var(--bg-section); }
-.music__btn { display: inline-flex; align-items: center; gap: 12px; min-height: 52px; padding: 6px 22px 6px 8px; border: 1px solid var(--line); border-radius: 999px; background: #fff; text-align: left; }
+.music__btn { display: inline-flex; align-items: center; gap: 12px; min-height: 52px; padding: 6px 22px 6px 8px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); text-align: left; }
 .music__icon { width: 40px; height: 40px; border-radius: 50%; background: var(--accent); display: inline-flex; align-items: center; justify-content: center; }
-.music__icon svg { width: 18px; height: 18px; fill: #fff; }
+.music__icon svg { width: 18px; height: 18px; fill: var(--on-accent); }
 .music__btn b { display: block; font-size: 15px; }
 .music__btn small { display: block; font-size: 13px; color: var(--ink-soft); }
 
 .form { display: grid; gap: 12px; text-align: left; }
 .field { display: grid; gap: 6px; }
 .field span { font-size: 15px; color: var(--ink-soft); }
-.field input, .field textarea { font: inherit; font-size: 16px; color: var(--ink); width: 100%; padding: 12px 14px; border: 1px solid var(--line); border-radius: 10px; background: #fff; }
+.field input, .field textarea { font: inherit; font-size: 16px; color: var(--ink); width: 100%; padding: 12px 14px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
 .field input:focus, .field textarea:focus { outline: 2px solid var(--accent); outline-offset: 1px; border-color: transparent; }
-.seg { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: #fff; }
+.seg { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: var(--surface); }
 .seg label { position: relative; }
 .seg input { position: absolute; opacity: 0; inset: 0; }
 .seg span { display: flex; align-items: center; justify-content: center; min-height: 46px; font-size: 16px; color: var(--ink-soft); }
 .seg label + label span { border-left: 1px solid var(--line); }
-.seg input:checked + span { background: var(--accent); color: #fff; }
+.seg input:checked + span { background: var(--accent); color: var(--on-accent); }
 .seg input:focus-visible + span { outline: 2px solid var(--accent); outline-offset: -4px; }
 .form__note { font-size: 14px; color: var(--ink-soft); text-align: center; }
 

@@ -66,6 +66,101 @@ export const MOODS = {
   },
 };
 
+// 2026-10-16 추가 8종 — 국내 업체 샘플의 "구성"만 참고(사진·글꼴·코드는 우리 것)
+Object.assign(MOODS, {
+  daylight: {
+    name: '데이라이트',
+    desc: '큰 날짜 아래로 번지는 사진',
+    cover: 'daylight',
+    fonts: [`${GF}family=Cormorant+Garamond:ital,wght@0,400;0,500;1,500&family=Noto+Serif+KR:wght@300;500`],
+    accents: [
+      { key: 'brown', name: '브라운', hex: '#7f6141' },
+      { key: 'charcoal', name: '차콜', hex: '#3b3936' },
+      { key: 'rose', name: '로즈', hex: '#924454' },
+    ],
+  },
+  tone: {
+    name: '톤온톤',
+    desc: '사진 없이 글자로만',
+    cover: 'tone',
+    photoless: true,
+    fonts: [`${GF}family=Cinzel:wght@400;500&family=Pinyon+Script&family=Gowun+Batang:wght@400;700&family=Cormorant+Garamond:ital,wght@0,500;1,500`],
+    accents: [
+      { key: 'mocha', name: '모카', hex: '#755c47' },
+      { key: 'ink', name: '먹색', hex: '#3b3530' },
+      { key: 'sage', name: '세이지', hex: '#506a4a' },
+    ],
+  },
+  minimal: {
+    name: '미니멀 초대장',
+    desc: '사진 없이 단정하게, 혼주용에도',
+    cover: 'minimal',
+    photoless: true,
+    fonts: [`${GF}family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Nanum+Myeongjo:wght@400;700`],
+    accents: [
+      { key: 'black', name: '블랙', hex: '#1e1e1e' },
+      { key: 'navy', name: '네이비', hex: '#22324d' },
+      { key: 'wine', name: '와인', hex: '#7a2335' },
+    ],
+  },
+  oval: {
+    name: '다크 오벌',
+    desc: '어두운 바탕, 타원 사진',
+    cover: 'oval',
+    dark: true,
+    fonts: [`${GF}family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Gowun+Batang:wght@400;700`],
+    accents: [
+      { key: 'gold', name: '골드', hex: '#d8b98a' },
+      { key: 'sage', name: '세이지', hex: '#a9c0a0' },
+      { key: 'blush', name: '블러시', hex: '#e2b6b0' },
+    ],
+  },
+  glass: {
+    name: '글래스',
+    desc: '꽉 찬 사진 위 유리 카드',
+    cover: 'glass',
+    fonts: [PRETENDARD, `${GF}family=Cormorant+Garamond:ital,wght@0,500;1,500`],
+    accents: [
+      { key: 'green', name: '그린', hex: '#3f6a52' },
+      { key: 'slate', name: '슬레이트', hex: '#3e5266' },
+      { key: 'plum', name: '플럼', hex: '#6a4060' },
+    ],
+  },
+  line: {
+    name: '라인 앤 네임',
+    desc: '가는 선으로 이은 날짜와 이름',
+    cover: 'line',
+    fonts: [`${GF}family=Nanum+Myeongjo:wght@400;700&family=Cormorant+Garamond:ital,wght@0,500;1,500`],
+    accents: [
+      { key: 'walnut', name: '월넛', hex: '#5b4a3a' },
+      { key: 'ink', name: '먹색', hex: '#262421' },
+      { key: 'forest', name: '포레스트', hex: '#355541' },
+    ],
+  },
+  hand: {
+    name: '손글씨',
+    desc: '테이프 붙인 사진, 손글씨 결혼합니다',
+    cover: 'hand',
+    fonts: [`${GF}family=Nanum+Pen+Script&family=Gowun+Dodum&family=Cormorant+Garamond:ital,wght@1,500`],
+    accents: [
+      { key: 'red', name: '레드', hex: '#a8402c' },
+      { key: 'navy', name: '네이비', hex: '#2d4470' },
+      { key: 'green', name: '그린', hex: '#3d6a46' },
+    ],
+  },
+  vertical: {
+    name: '세로 이름',
+    desc: '한글 이름을 세로로',
+    cover: 'vertical',
+    fonts: [`${GF}family=Noto+Serif+KR:wght@400;600&family=Cormorant+Garamond:ital,wght@0,500;1,500`],
+    accents: [
+      { key: 'walnut', name: '월넛', hex: '#6d5a42' },
+      { key: 'ink', name: '먹색', hex: '#2e2a25' },
+      { key: 'plum', name: '플럼', hex: '#6a3f55' },
+    ],
+  },
+});
+
 export const DEFAULT_MOOD = 'romantic';
 
 export function accentHex(mood, key) {
